@@ -1,0 +1,215 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="TransferDate"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_factura1" Type="InArgument(x:String)" />
+    <x:Property Name="in_indexFactura" Type="InArgument(x:Int32)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>TransferDate_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.PDF</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="TransferDate" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="out_factura1" />
+      <Variable x:TypeArguments="s:String[]" Name="array_DateExtrase" />
+      <Variable x:TypeArguments="sd:DataTable" Name="DateExtrase" />
+      <Variable x:TypeArguments="x:String" Name="client" />
+      <Variable x:TypeArguments="x:String" Name="Adresa" />
+      <Variable x:TypeArguments="x:String" Name="CodAbonat" />
+      <Variable x:TypeArguments="x:String" Name="TotalPlata" />
+      <Variable x:TypeArguments="x:String" Name="NrFactura" />
+      <Variable x:TypeArguments="x:String" Name="DataScadenta" />
+      <Variable x:TypeArguments="x:String" Name="PerioadaFacturare" />
+      <Variable x:TypeArguments="x:String" Name="DescriereFactura" />
+      <Variable x:TypeArguments="x:String" Name="ContBancar" />
+      <Variable x:TypeArguments="x:String" Default="[&quot;A&quot;+(1+in_indexFactura).ToString]" Name="Cell" />
+    </Sequence.Variables>
+    <Assign DisplayName="Assign Client" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[client]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_factura1.Split({ "Client:"},StringSplitOptions.None)(1).Split({"Adresa:",Environment.NewLine}, StringSplitOptions.None)(0)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign Adresa" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[Adresa]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_factura1.Split({"TAMAS SORIN ADRIAN ", "Cod postal"} , StringSplitOptions.None)(1).Split({Environment.NewLine}, StringSplitOptions.None)(1)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign Cod Abonat" sap2010:WorkflowViewState.IdRef="Assign_4">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[CodAbonat]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_factura1.Split({"Cod client:"}, StringSplitOptions.None)(1).Split({Environment.NewLine},StringSplitOptions.None)(0)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign Total Plata" sap2010:WorkflowViewState.IdRef="Assign_5">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[TotalPlata]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_factura1.Split({"8. TOTAL DE PLATA [8=4+71 Lei","9. CONSUM ENERGIE ACTIVA"}, StringSplitOptions.None)(1).Split({Environment.NewLine}, StringSplitOptions.None)(0)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign Numar Factura" sap2010:WorkflowViewState.IdRef="Assign_6">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[NrFactura]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_factura1.Split({"nr. ", " din data de"}, StringSplitOptions.None)(1)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign Data Scadenta" sap2010:WorkflowViewState.IdRef="Assign_7">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[DataScadenta]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_factura1.Split({"Data scadenta: ", "lnterval de emitere"},StringSplitOptions.None)(1).Split({Environment.NewLine},StringSplitOptions.None)(1)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign Perioada Facturare" sap2010:WorkflowViewState.IdRef="Assign_8">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[PerioadaFacturare]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_factura1.Split({"Perioada de facturare: ","Mod stabilire index: "}, StringSplitOptions.None)(1).Split({Environment.NewLine}, StringSplitOptions.None)(1)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign Descriere Factura" sap2010:WorkflowViewState.IdRef="Assign_9">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[DescriereFactura]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_factura1.Split({"Tip factura: ","Furnizor "}, StringSplitOptions.None)(1).Split({Environment.NewLine},StringSplitOptions.None)(0)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign Cont Bancar" sap2010:WorkflowViewState.IdRef="Assign_10">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[ContBancar]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_factura1.Split({"Cont: ","Subunitatea:"}, StringSplitOptions.None)(1).Split({Environment.NewLine}, StringSplitOptions.None)(0)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:BuildDataTable DataTable="[DateExtrase]" DisplayName="Build Data Table DateExtrase" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Nume_x0020_Prenume&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Cod_x0020_Abonat&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Adresa&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Total_x0020_de_x0020_Plata&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Nr._x0020_Factura&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Data_x0020_Scadenta&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Perioada_x0020_Facturata&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Descriere_x0020_Factura&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Cont_x0020_Bancar&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+    <Assign DisplayName="Assign Data Extrase" sap2010:WorkflowViewState.IdRef="Assign_11">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:String[]">[array_DateExtrase]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:String[]">[{Client, CodAbonat, Adresa, TotalPlata, NrFactura, DataScadenta, PerioadaFacturare, DescriereFactura, ContBancar}]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[array_DateExtrase]" DataTable="[DateExtrase]" DisplayName="Add Data Row To Table DataExtrase" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+    <ui:WriteRange AddHeaders="False" DataTable="[DateExtrase]" DisplayName="Write Range DateExtrase To Rezultate.xlsx" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Sheet1" StartingCell="[Cell]" WorkbookPath="Rezultate.xlsx" />
+    <sads:DebugSymbol.Symbol>d1hDOlxVc2Vyc1xWbGFkXERvY3VtZW50c1xVaVBhdGhcT0NSX0ZhY3R1cmlcRXh0cmFjdERhdGFfRmFjdHVyaVxFeHRyYWN0RGF0YV9GYWN0dXJhMS54YW1sKksDrwEOAgEBWTRZYgIBAlsFYg4CAUBjBWoOAgE8awVyDgIBOHMFeg4CATR7BYIBDgIBMIMBBYoBDgIBLIsBBZIBDgIBKJMBBZoBDgIBJJsBBaIBDgIBIKMBBaMBmhECAR2kAQWrAQ4CARCsAQWsAcEBAgELrQEFrQHxAQIBBGAwYK8BAgFDXTFdOQIBQWgwaMABAgE/ZTFlOQIBPXAwcKgBAgE7bTFtPAIBOXgweNYBAgE3dTF1PQIBNYABMIABeQIBM30xfTwCATGIATCIAcIBAgEvhQExhQE/AgEtkAEwkAHNAQIBK40BMY0BRAIBKZgBMJgBtgECASeVATGVAUMCASWgATCgAbMBAgEjnQExnQE9AgEhowEiowExAgEeqQEyqQGlAQIBE6YBM6YBRgIBEawBUKwBXwIBDqwBMKwBRQIBDK0ByAGtAdABAgEJrQExrQFAAgEHrQGyAa0BugECAQatAd4BrQHuAQIBBQ==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_5" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_9" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="Assign_10" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="BuildDataTable_1" sap:VirtualizedContainerService.HintSize="314,58.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_11" sap:VirtualizedContainerService.HintSize="314,62" />
+      <sap2010:ViewStateData Id="AddDataRow_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="WriteRange_1" sap:VirtualizedContainerService.HintSize="314,52.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,1357.33333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TransferDate_1" sap:VirtualizedContainerService.HintSize="376,1437.33333333333" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
